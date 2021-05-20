@@ -1,0 +1,4 @@
+(executable
+ (public_name vic2_ocaml_parser)
+ (name main)
+ (libraries vic2_ocaml_parser))
