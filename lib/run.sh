@@ -1,1 +1,2 @@
-dune build && dune exec /bin/exec
+cd ../bin/
+sh run.sh 

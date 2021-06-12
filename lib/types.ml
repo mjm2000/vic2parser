@@ -1,9 +1,9 @@
 
 
 type  conds =  
-    |And of conds list 
-    |Or of conds list
-    |Not of conds list
+    |And of cond_block 
+    |Or of  cond_block
+    |Not of cond_block
     |Average_consciousness of int 
     |Average_militancy of int
     |Religion of string
@@ -16,7 +16,7 @@ type  conds =
     |Immediate of effect list
     |Check_variable of string * int 
     |Has_global_flag of string
-    |Is_canal_enabled of int list 
+    |Is_canal_enabled of int
     |Administration_spending of int 
     |Ai of bool 
     |Alliance_with of string 
@@ -35,7 +35,7 @@ type  conds =
     |Constructing_cb_progress of float
     |Constructing_cb_type of string 
     |Controls of string 
-    |Crime_fighting of string
+    |Crime_fighting of float 
     |Crisis_exist of bool 
     |Culture_has_union_tag of bool
     |Diplomatic_influence of string * int 
@@ -162,14 +162,14 @@ type  conds =
     |Has_pop_type of string 
     |Has_province_flag of string  
     |Has_province_modifier of string 
-    |Has_recent_imigration of string 
-    |Is_blockaded of float 
+    |Has_recent_imigration of int 
+    |Is_blockaded of bool 
     |Is_capital of bool 
     |Is_coastal of bool 
     |Is_colonial of bool 
     |Is_core of string 
     |Is_ideology_enabled of string 
-    |Is_overseas of string 
+    |Is_overseas of bool 
     |Is_primary_culture of bool 
     |Is_state_capital of bool 
     |Is_state_religion of bool 
@@ -279,19 +279,21 @@ and   effect =
     |Poor_life_needs  
 
 
-type trigger = conds list 
-type option_block = effect list
+and cond_block = Cond_block of conds list 
+type effect_block = effect list
 
-type event_values = Id of int 
+
+type event_member = Id of int 
                     | Title of string 
                     | Picture of string 
+                    | Trigger of cond_block 
                     | Is_Triggered of bool
                     | Major of bool
                     | Allow_multiple_instances of bool
-                    | Option of string * effect list
+                    | Option of effect_block 
                     | MTTH 
 
-type event = Country_event of event_values list 
-            | Province_event of event_values list 
+type event = Country_event of event_member list 
+            | Province_event of event_member list 
 
 type events = Events of event list | Eof

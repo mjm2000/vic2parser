@@ -1,34 +1,54 @@
 {
 open Parser
-module Make (M : sig
-               type 'a t
-               val return: 'a -> 'a t
-               val bind: 'a t -> ('a -> 'b t) -> 'b t
-               val fail : string -> 'a t
-
-               (* Set up lexbuf *)
-               val on_refill : Lexing.lexbuf -> unit t
-             end)
-= struct
-
-let refill_handler k lexbuf =
-    M.bind (M.on_refill lexbuf) (fun () -> k lexbuf)
 
 
+exception Error of string
+exception Eof
+ 
+let new_line_incr lexbuf =
+    let pos = lexbuf.Lexing.lex_curr_p in 
+    lexbuf.Lexing.lex_curr_p <- {pos with
+        Lexing.pos_lnum = pos.Lexing.pos_lnum + 1;  
+        Lexing.pos_bol =  pos.Lexing.pos_cnum;
+    }
+
+
+let current_pos lexbuf =
+    let pos = lexbuf.Lexing.lex_curr_p in
+    pos.pos_cnum-pos.pos_bol
 }
+
+
 let digit = ['0'-'9'] 
 let integer = (digit | ['1'-'9']  digit*)
 let character = (['A'-'Z' 'a'-'z']   digit) 
-let double = integer '.' digit*
+let tag = (['A'-'Z'] ['A'-'Z'] ['A'-'Z'])
+let identifier = (character|digit)*
+let float = integer '.' digit*
 let whitespace = [' ' '\t'] 
 let newline = ['\n' ]
+let comment = ('#'_*)
 
 
 rule token = parse
-    | integer as i {INTEGER  (int_of_string x) }
-    |'"'                                {STRING} 
-    |'='                                        {  EQ}
-    |"AND"                                     {   AND }
+    | integer as i                      {INTEGER  (int_of_string i) }
+    | whitespace                        {token lexbuf}
+    | newline                           {new_line_incr lexbuf;token lexbuf}
+    | comment                           {token lexbuf}
+    |"country_event"                    {COUNTRY_EVENT}
+    |'"'                                {read_string (Buffer.create 17) lexbuf} 
+    |eof                                {EOF}
+    |float as i                         {FLOAT   (float_of_string i)} 
+    |"trigger"                          {TRIGGER}
+    |"THIS"                             {TAG("THIS")}
+    |"FROM"                             {TAG("FROM")}
+    |"yes"                              {BOOL(true)}
+    |"no"                               {BOOL(false)}
+    |'{'                                        {L_BRACE}
+    |'}'                                        {R_BRACE}
+    |'='                                        { EQ}
+    |"id"                                       { ID} 
+    |"AND"                                      {  AND }
     |"OR"                                       {  OR }
     |"NOT"                                      {  NOT }
     |"average_militancy"                        {  AVERAGE_MILITANCY }
@@ -161,7 +181,6 @@ rule token = parse
     |"social_spending"                          {  SOCIAL_SPENDING  }
     |"stronger_army_than"                       {  STRONGER_ARMY_THAN  }
     |"substate_of"                              {  SUBSTATE_OF  }
-    |"tag"                                      {  TAG  }
     |"this_culture_union"                       {  THIS_CULTURE_UNION  }
     |"total_amount_of_divisions"                {  TOTAL_AMOUNT_OF_DIVISIONS  }
     |"total_amount_of_ships"                    {  TOTAL_AMOUNT_OF_SHIPS  }
@@ -169,7 +188,7 @@ rule token = parse
     |"total_num_of_ports"                       {  TOTAL_NUM_OF_PORTS  }
     |"total_offensives"                         {  TOTAL_OFFENSIVES  }
     |"total_of_ours_sunk"                       {  TOTAL_OF_OURS_SUNK  }
-    |"tag"                                      {  TAG  }
+    |"tag"                                      {  TAG_COND  }
     |"total_sea_battles"                        {  TOTAL_SEA_BATTLES  }
     |"total_sunk_by_us"                         {  TOTAL_SUNK_BY_US  }
     |"trade_policy"                             {  TRADE_POLICY  }
@@ -229,7 +248,6 @@ rule token = parse
     |"terrain"                                  {  TERRAIN  }
     |"total_pops"                               {  TOTAL_POPS  }
     |"unemployment"                             {  UNEMPLOYMENT  }
-    |"unemployment_by_type"                     {  UNEMPLOYMENT_BY_TYPE  }
     |"unemployment_by_type"                     {  UNEMPLOYMENT_BY_TYPE  }
     |"units_in_province"                        {  UNITS_IN_PROVINCE  }
     |"work_available"                           {  WORK_AVAILABLE  }
@@ -331,6 +349,14 @@ rule token = parse
     |"goods_demand"                             {  AND                  } 
     |"rich_income_modifier"                     {  AND                  } 
     |"poor_life_needs"                          {  AND                  }                                                
+    |identifier as i                            {IDEN(i)} 
+and read_string buf =
+    parse
+    |'"' {STRING(Buffer.contents buf)}
+    |[^ '"' '\\']+ {
+        Buffer.add_string buf (Lexing.lexeme lexbuf);
+        read_string buf lexbuf
+    }
+
 {
-end
 }
