@@ -1,0 +1,318 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/jimmy/projects/vic2_ocaml_parser/lib/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+Accepted_culture	types.ml	/^    |Accepted_culture of string $/;"	C	type:conds
+Activate_technology	types.ml	/^|Activate_technology of string$/;"	C	type:effect
+Add_accepted_culture	types.ml	/^|Add_accepted_culture of string$/;"	C	type:effect
+Add_core	types.ml	/^|Add_core of string$/;"	C	type:effect
+Add_crisis_interest	types.ml	/^|Add_crisis_interest of bool$/;"	C	type:effect
+Add_crisis_temperature	types.ml	/^|Add_crisis_temperature of int$/;"	C	type:effect
+Add_tax_relative_income	types.ml	/^|Add_tax_relative_income of int$/;"	C	type:effect
+Administration_spending	types.ml	/^    |Administration_spending of int $/;"	C	type:conds
+Agree_with_ruling_party	types.ml	/^    |Agree_with_ruling_party of float $/;"	C	type:conds
+Ai	types.ml	/^    |Ai of bool $/;"	C	type:conds
+Alliance_with	types.ml	/^    |Alliance_with of string $/;"	C	type:conds
+Allow_multiple_instances	types.ml	/^                    | Allow_multiple_instances of bool$/;"	C	type:event_member
+Allow_multiple_instances	types.ml	/^    |Allow_multiple_instances of bool $/;"	C	type:conds
+And	types.ml	/^    |And of conds list $/;"	C	type:conds
+Annex_to	types.ml	/^|Annex_to of string$/;"	C	type:effect
+Any_owned	types.ml	/^|Any_owned of string * bool $/;"	C	type:effect
+Any_pop	types.ml	/^|Any_pop of string * float $/;"	C	type:effect
+Any_pop_effect	types.ml	/^|Any_pop_effect of string * float $/;"	C	type:effect
+Assimilate	types.ml	/^|Assimilate of bool $/;"	C	type:effect
+Average_consciousness	types.ml	/^    |Average_consciousness of int $/;"	C	type:conds
+Average_militancy	types.ml	/^    |Average_militancy of int$/;"	C	type:conds
+Badboy	types.ml	/^    |Badboy of float $/;"	C	type:conds
+Badboy_effect	types.ml	/^|Badboy_effect of int$/;"	C	type:effect
+Big_producer	types.ml	/^    |Big_producer of string $/;"	C	type:conds
+Blockade	types.ml	/^    |Blockade of float $/;"	C	type:conds
+Brigades_compare	types.ml	/^    |Brigades_compare of int $/;"	C	type:conds
+Build_factory_in_capital_state	types.ml	/^|Build_factory_in_capital_state of string$/;"	C	type:effect
+Can_build_factory	types.ml	/^    |Can_build_factory of bool $/;"	C	type:conds
+Can_create_vassals	types.ml	/^    |Can_create_vassals of bool $/;"	C	type:conds
+Can_nationalize	types.ml	/^    |Can_nationalize of bool  $/;"	C	type:conds
+Capital	types.ml	/^    |Capital of string $/;"	C	type:conds
+Capital_effect	types.ml	/^|Capital_effect of string$/;"	C	type:effect
+Cash_reserves	types.ml	/^    |Cash_reserves of float $/;"	C	type:conds
+Casus_belli	types.ml	/^    |Casus_belli of string $/;"	C	type:conds
+Change_controller	types.ml	/^|Change_controller of string$/;"	C	type:effect
+Change_province_name	types.ml	/^|Change_province_name of string$/;"	C	type:effect
+Change_region_name	types.ml	/^|Change_region_name of string$/;"	C	type:effect
+Change_tag	types.ml	/^|Change_tag of string$/;"	C	type:effect
+Change_tag_no_core_switch	types.ml	/^|Change_tag_no_core_switch of string$/;"	C	type:effect
+Check_variable	types.ml	/^    |Check_variable of string * int $/;"	C	type:conds
+Citizenship_policy	types.ml	/^    |Citizenship_policy of string $/;"	C	type:conds
+Civilization_progress	types.ml	/^    |Civilization_progress of float $/;"	C	type:conds
+Civilized	types.ml	/^    |Civilized of bool $/;"	C	type:conds
+Civilized_effect	types.ml	/^|Civilized_effect of bool$/;"	C	type:effect
+Clr_country_flag	types.ml	/^|Clr_country_flag of string$/;"	C	type:effect
+Clr_global_flag	types.ml	/^|Clr_global_flag of string$/;"	C	type:effect
+Clr_province_flag	types.ml	/^|Clr_province_flag of string$/;"	C	type:effect
+Colonial_nation	types.ml	/^    |Colonial_nation of bool  $/;"	C	type:conds
+Consciousness	types.ml	/^    |Consciousness of int $/;"	C	type:conds
+Consciousness_effect	types.ml	/^|Consciousness_effect of int$/;"	C	type:effect
+Constructing_cb_progress	types.ml	/^    |Constructing_cb_progress of float$/;"	C	type:conds
+Constructing_cb_type	types.ml	/^    |Constructing_cb_type of string $/;"	C	type:conds
+Continent	types.ml	/^    |Continent of string $/;"	C	type:conds
+Controlled_by	types.ml	/^    |Controlled_by of string $/;"	C	type:conds
+Controlled_by_rebels	types.ml	/^    |Controlled_by_rebels of bool $/;"	C	type:conds
+Controls	types.ml	/^    |Controls of string $/;"	C	type:conds
+Country_event	types.ml	/^type event = Country_event of event_member list $/;"	C	type:event
+Country_event	types.ml	/^|Country_event of string$/;"	C	type:effect
+Country_units_in_province	types.ml	/^    |Country_units_in_province of string $/;"	C	type:conds
+Create_alliance	types.ml	/^|Create_alliance of string$/;"	C	type:effect
+Create_vassal	types.ml	/^|Create_vassal of string$/;"	C	type:effect
+Crime_fighting	types.ml	/^    |Crime_fighting of float $/;"	C	type:conds
+Crisis_exist	types.ml	/^    |Crisis_exist of bool $/;"	C	type:conds
+Culture	types.ml	/^    |Culture of string $/;"	C	type:conds
+Culture_has_union_tag	types.ml	/^    |Culture_has_union_tag of bool$/;"	C	type:conds
+Diplomatic_influence	types.ml	/^    |Diplomatic_influence of string * int $/;"	C	type:conds
+E	main.ml	/^module E = MenhirLib.ErrorReports$/;"	M
+Economic_policy	types.ml	/^    |Economic_policy of string  $/;"	C	type:conds
+Economic_reform	types.ml	/^|Economic_reform of string$/;"	C	type:effect
+Economic_reform_name	types.ml	/^    |Economic_reform_name of string $/;"	C	type:conds
+Education_spending	types.ml	/^    |Education_spending of float  $/;"	C	type:conds
+Election	types.ml	/^    |Election of bool $/;"	C	type:conds
+Election_effect	types.ml	/^|Election_effect of bool $/;"	C	type:effect
+Empty	types.ml	/^    |Empty of bool $/;"	C	type:conds
+Enable_ideology	types.ml	/^|Enable_ideology of string$/;"	C	type:effect
+End_military_access	types.ml	/^|End_military_access of string$/;"	C	type:effect
+End_war	types.ml	/^|End_war of string$/;"	C	type:effect
+Events	types.ml	/^type events = Events of event list | Eof$/;"	C	type:events
+Everyday_needs	types.ml	/^    |Everyday_needs of int $/;"	C	type:conds
+Exists	types.ml	/^    |Exists of string $/;"	C	type:conds
+Fire_only_once	types.ml	/^    |Fire_only_once of bool $/;"	C	type:conds
+Flashpoint_tension	types.ml	/^    |Flashpoint_tension of int $/;"	C	type:conds
+Flashpoint_tension_effect	types.ml	/^|Flashpoint_tension_effect of int$/;"	C	type:effect
+Fort	types.ml	/^|Fort of int $/;"	C	type:effect
+Government	types.ml	/^    |Government of string $/;"	C	type:conds
+Government_effect	types.ml	/^|Government_effect of string$/;"	C	type:effect
+Great_wars_enabled	types.ml	/^    |Great_wars_enabled of bool$/;"	C	type:conds
+Has_building	types.ml	/^    |Has_building of string $/;"	C	type:conds
+Has_country_flag	types.ml	/^    |Has_country_flag of string $/;"	C	type:conds
+Has_country_modifier	types.ml	/^    |Has_country_modifier of string $/;"	C	type:conds
+Has_cultural_sphere	types.ml	/^    |Has_cultural_sphere of string $/;"	C	type:conds
+Has_culture_core	types.ml	/^    |Has_culture_core of bool $/;"	C	type:conds
+Has_empty_adjacent_province	types.ml	/^    |Has_empty_adjacent_province of bool$/;"	C	type:conds
+Has_empty_adjacent_state	types.ml	/^    |Has_empty_adjacent_state of bool $/;"	C	type:conds
+Has_factories	types.ml	/^    |Has_factories of bool $/;"	C	type:conds
+Has_global_flag	types.ml	/^    |Has_global_flag of string$/;"	C	type:conds
+Has_leader	types.ml	/^    |Has_leader of string $/;"	C	type:conds
+Has_national_minority	types.ml	/^    |Has_national_minority of bool $/;"	C	type:conds
+Has_pop_culture	types.ml	/^    |Has_pop_culture of string * string  $/;"	C	type:conds
+Has_pop_religion	types.ml	/^    |Has_pop_religion of string * string $/;"	C	type:conds
+Has_pop_type	types.ml	/^    |Has_pop_type of string $/;"	C	type:conds
+Has_province_flag	types.ml	/^    |Has_province_flag of string  $/;"	C	type:conds
+Has_province_modifier	types.ml	/^    |Has_province_modifier of string $/;"	C	type:conds
+Has_recent_imigration	types.ml	/^    |Has_recent_imigration of int $/;"	C	type:conds
+Has_recently_lost_war	types.ml	/^    |Has_recently_lost_war of bool$/;"	C	type:conds
+Has_unclaimed_cores	types.ml	/^    |Has_unclaimed_cores of bool $/;"	C	type:conds
+Have_core_in	types.ml	/^    |Have_core_in of string $/;"	C	type:conds
+Id	types.ml	/^type event_member = Id of int $/;"	C	type:event_member
+Identifier	types.ml	/^    |Identifier of string$/;"	C	type:conds
+Ideology	types.ml	/^    |Ideology of string * int$/;"	C	type:conds
+Immediate	types.ml	/^    |Immediate of effect list$/;"	C	type:conds
+In_sphere	types.ml	/^    |In_sphere of string $/;"	C	type:conds
+Industrial_score	types.ml	/^    |Industrial_score of int $/;"	C	type:conds
+Infrastructure	types.ml	/^|Infrastructure  of int $/;"	C	type:effect
+Inherit	types.ml	/^|Inherit of string$/;"	C	type:effect
+Invention	types.ml	/^    |Invention of string $/;"	C	type:conds
+Involved_in_crisis	types.ml	/^    |Involved_in_crisis of bool $/;"	C	type:conds
+Io	io.ml	/^open List$/;"	M
+Is_Triggered	types.ml	/^                    | Is_Triggered of bool$/;"	C	type:event_member
+Is_accepted_culture	types.ml	/^    |Is_accepted_culture of bool  $/;"	C	type:conds
+Is_blockaded	types.ml	/^    |Is_blockaded of bool $/;"	C	type:conds
+Is_canal_enabled	types.ml	/^    |Is_canal_enabled of int$/;"	C	type:conds
+Is_capital	types.ml	/^    |Is_capital of bool $/;"	C	type:conds
+Is_claim_crisis	types.ml	/^    |Is_claim_crisis of bool $/;"	C	type:conds
+Is_coastal	types.ml	/^    |Is_coastal of bool $/;"	C	type:conds
+Is_colonial	types.ml	/^    |Is_colonial of bool $/;"	C	type:conds
+Is_core	types.ml	/^    |Is_core of string $/;"	C	type:conds
+Is_cultural_union	types.ml	/^    |Is_cultural_union of string $/;"	C	type:conds
+Is_cultural_union_truth	types.ml	/^    |Is_cultural_union_truth of bool $/;"	C	type:conds
+Is_culture_group	types.ml	/^    |Is_culture_group of bool $/;"	C	type:conds
+Is_disarmed	types.ml	/^    |Is_disarmed of bool $/;"	C	type:conds
+Is_greater_power	types.ml	/^    |Is_greater_power of bool $/;"	C	type:conds
+Is_ideology_enabled	types.ml	/^    |Is_ideology_enabled of string $/;"	C	type:conds
+Is_independant	types.ml	/^    |Is_independant of bool $/;"	C	type:conds
+Is_liberation_crisis	types.ml	/^    |Is_liberation_crisis of bool $/;"	C	type:conds
+Is_mobilised	types.ml	/^    |Is_mobilised of bool  $/;"	C	type:conds
+Is_our_vassal	types.ml	/^    |Is_our_vassal of string $/;"	C	type:conds
+Is_overseas	types.ml	/^    |Is_overseas of bool $/;"	C	type:conds
+Is_possible_vassal	types.ml	/^    |Is_possible_vassal of string $/;"	C	type:conds
+Is_primary_culture	types.ml	/^    |Is_primary_culture of bool $/;"	C	type:conds
+Is_secondary_power	types.ml	/^    |Is_secondary_power of bool $/;"	C	type:conds
+Is_slave	types.ml	/^|Is_slave of string$/;"	C	type:effect
+Is_sphere_leader_of	types.ml	/^    |Is_sphere_leader_of of string $/;"	C	type:conds
+Is_state_capital	types.ml	/^    |Is_state_capital of bool $/;"	C	type:conds
+Is_state_religion	types.ml	/^    |Is_state_religion of bool $/;"	C	type:conds
+Is_substate	types.ml	/^    |Is_substate of bool $/;"	C	type:conds
+Is_triggered_only	types.ml	/^    |Is_triggered_only  of bool$/;"	C	type:conds
+Is_vassal	types.ml	/^    |Is_vassal of bool $/;"	C	type:conds
+Kill_leader	types.ml	/^|Kill_leader of string$/;"	C	type:effect
+L	main.ml	/^module L = MenhirLib.LexerUtil$/;"	M
+Leave_alliance	types.ml	/^|Leave_alliance of string$/;"	C	type:effect
+Life_needs	types.ml	/^    |Life_needs of int  $/;"	C	type:conds
+Life_rating	types.ml	/^    |Life_rating of int  $/;"	C	type:conds
+Life_rating_effect	types.ml	/^|Life_rating_effect of int$/;"	C	type:effect
+Literacy	types.ml	/^    |Literacy of int  $/;"	C	type:conds
+Literacy_effect	types.ml	/^|Literacy_effect of int$/;"	C	type:effect
+Lost_national	types.ml	/^    |Lost_national of int  $/;"	C	type:conds
+Luxury_needs	types.ml	/^    |Luxury_needs of int  $/;"	C	type:conds
+MTTH	types.ml	/^                    | MTTH $/;"	C	type:event_member
+Main	main.ml	/^open Printf$/;"	M
+Major	types.ml	/^                    | Major of bool$/;"	C	type:event_member
+Major	types.ml	/^    |Major of bool$/;"	C	type:conds
+Middle_strata_everyday_needs	types.ml	/^    |Middle_strata_everyday_needs  of float$/;"	C	type:conds
+Middle_strata_life_needs	types.ml	/^    |Middle_strata_life_needs of float $/;"	C	type:conds
+Middle_strata_luxury_needs	types.ml	/^    |Middle_strata_luxury_needs of float  $/;"	C	type:conds
+Middle_tax	types.ml	/^    |Middle_tax of float  $/;"	C	type:conds
+Militancy	types.ml	/^    |Militancy of int  $/;"	C	type:conds
+Militancy_effect	types.ml	/^|Militancy_effect of int$/;"	C	type:effect
+Military_access	types.ml	/^    |Military_access of string $/;"	C	type:conds
+Military_access_effect	types.ml	/^|Military_access_effect of string$/;"	C	type:effect
+Military_reform	types.ml	/^|Military_reform of string$/;"	C	type:effect
+Military_reform_name	types.ml	/^    |Military_reform_name of string $/;"	C	type:conds
+Military_score	types.ml	/^    |Military_score of int $/;"	C	type:conds
+Military_score_tag	types.ml	/^    |Military_score_tag of int$/;"	C	type:conds
+Military_spending	types.ml	/^    |Military_spending of int  $/;"	C	type:conds
+Minorities	types.ml	/^    |Minorities of bool $/;"	C	type:conds
+Money	types.ml	/^    |Money of int $/;"	C	type:conds
+Money_effect	types.ml	/^|Money_effect of int$/;"	C	type:effect
+Month	types.ml	/^    |Month of int  $/;"	C	type:conds
+Move_pop	types.ml	/^|Move_pop of string$/;"	C	type:effect
+National_provinces_occupied	types.ml	/^    |National_provinces_occupied of int $/;"	C	type:conds
+Nationalize	types.ml	/^|Nationalize of bool$/;"	C	type:effect
+Nationalvalue	types.ml	/^    |Nationalvalue of string $/;"	C	type:conds
+Nationalvalue_effect	types.ml	/^|Nationalvalue_effect of string$/;"	C	type:effect
+Naval_base	types.ml	/^|Naval_base of int $/;"	C	type:effect
+Neighbour	types.ml	/^    |Neighbour of string $/;"	C	type:conds
+Neutrality	types.ml	/^|Neutrality of bool$/;"	C	type:effect
+Not	types.ml	/^    |Not of conds list$/;"	C	type:conds
+Num_of_allies	types.ml	/^    |Num_of_allies of int  $/;"	C	type:conds
+Num_of_cities	types.ml	/^    |Num_of_cities of int $/;"	C	type:conds
+Num_of_ports	types.ml	/^    |Num_of_ports of int  $/;"	C	type:conds
+Num_of_revolts	types.ml	/^    |Num_of_revolts of int $/;"	C	type:conds
+Num_of_substates	types.ml	/^    |Num_of_substates of int  $/;"	C	type:conds
+Num_of_vassals	types.ml	/^    |Num_of_vassals of int $/;"	C	type:conds
+Num_of_vassals_no_substates	types.ml	/^    |Num_of_vassals_no_substates of int$/;"	C	type:conds
+Number_of_states	types.ml	/^    |Number_of_states of int $/;"	C	type:conds
+Option	types.ml	/^                    | Option of effect list$/;"	C	type:event_member
+Or	types.ml	/^    |Or of  conds list$/;"	C	type:conds
+Owned_by	types.ml	/^    |Owned_by of string $/;"	C	type:conds
+Owns	types.ml	/^    |Owns of string $/;"	C	type:conds
+Part_of_sphere	types.ml	/^    |Part_of_sphere of bool $/;"	C	type:conds
+Picture	types.ml	/^                    | Picture of string $/;"	C	type:event_member
+Plurality	types.ml	/^|Plurality of int$/;"	C	type:effect
+Political_movement_strength	types.ml	/^    |Political_movement_strength of int$/;"	C	type:conds
+Political_reform	types.ml	/^|Political_reform of string$/;"	C	type:effect
+Political_reform_name	types.ml	/^    |Political_reform_name of string  $/;"	C	type:conds
+Political_reform_want	types.ml	/^    |Political_reform_want of float $/;"	C	type:conds
+Poor_strata_everyday_needs	types.ml	/^    |Poor_strata_everyday_needs of float $/;"	C	type:conds
+Poor_strata_life_needs	types.ml	/^    |Poor_strata_life_needs of float $/;"	C	type:conds
+Poor_strata_luxury_needs	types.ml	/^    |Poor_strata_luxury_needs of float  $/;"	C	type:conds
+Poor_tax	types.ml	/^    |Poor_tax of float $/;"	C	type:conds
+Pop_majority_culture	types.ml	/^    |Pop_majority_culture of string$/;"	C	type:conds
+Pop_majority_ideology	types.ml	/^    |Pop_majority_ideology of string $/;"	C	type:conds
+Pop_majority_religion	types.ml	/^    |Pop_majority_religion of string $/;"	C	type:conds
+Pop_militancy	types.ml	/^    |Pop_militancy of int  $/;"	C	type:conds
+Pop_type	types.ml	/^|Pop_type of string$/;"	C	type:effect
+Port	types.ml	/^    |Port of bool $/;"	C	type:conds
+Prestige	types.ml	/^    |Prestige of int $/;"	C	type:conds
+Prestige_effect	types.ml	/^|Prestige_effect of int$/;"	C	type:effect
+Prestige_factor	types.ml	/^|Prestige_factor of int$/;"	C	type:effect
+Primary_culture	types.ml	/^    |Primary_culture of string $/;"	C	type:conds
+Primary_culture_effect	types.ml	/^|Primary_culture_effect of string$/;"	C	type:effect
+Produces	types.ml	/^    |Produces of string $/;"	C	type:conds
+Province_control_days	types.ml	/^    |Province_control_days of int$/;"	C	type:conds
+Province_event	types.ml	/^            | Province_event of event_member list $/;"	C	type:event
+Province_event	types.ml	/^|Province_event of string $/;"	C	type:effect
+Province_id	types.ml	/^    |Province_id of string $/;"	C	type:conds
+RGO_size	types.ml	/^| RGO_size of int$/;"	C	type:effect
+Rank	types.ml	/^    |Rank of int $/;"	C	type:conds
+Reduce_pop	types.ml	/^|Reduce_pop of int$/;"	C	type:effect
+Region	types.ml	/^    |Region of string $/;"	C	type:conds
+Relation	types.ml	/^    |Relation of string * int  $/;"	C	type:conds
+Release	types.ml	/^|Release of string$/;"	C	type:effect
+Release_vassal	types.ml	/^|Release_vassal of string$/;"	C	type:effect
+Religion	types.ml	/^    |Religion of string$/;"	C	type:conds
+Religion_effect	types.ml	/^|Religion_effect of string$/;"	C	type:effect
+Religious_policy	types.ml	/^    |Religious_policy of string $/;"	C	type:conds
+Remove_accepted_culture	types.ml	/^|Remove_accepted_culture of string$/;"	C	type:effect
+Remove_core	types.ml	/^|Remove_core of string$/;"	C	type:effect
+Remove_country_modifier_effect	types.ml	/^|Remove_country_modifier_effect of string$/;"	C	type:effect
+Remove_province_modifier	types.ml	/^|Remove_province_modifier of string$/;"	C	type:effect
+Research_points	types.ml	/^|Research_points of int$/;"	C	type:effect
+Revolt_percentage	types.ml	/^    |Revolt_percentage of int $/;"	C	type:conds
+Rich_strata_everyday_needs	types.ml	/^    |Rich_strata_everyday_needs of float $/;"	C	type:conds
+Rich_strata_life_needs	types.ml	/^    |Rich_strata_life_needs of float $/;"	C	type:conds
+Rich_strata_luxury_needs	types.ml	/^    |Rich_strata_luxury_needs of float $/;"	C	type:conds
+Rich_tax	types.ml	/^    |Rich_tax of float $/;"	C	type:conds
+Ruling_party	types.ml	/^    |Ruling_party of string $/;"	C	type:conds
+Ruling_party_ideology	types.ml	/^    |Ruling_party_ideology of string  $/;"	C	type:conds
+Ruling_party_ideology_effect	types.ml	/^|Ruling_party_ideology_effect of string$/;"	C	type:effect
+Secede_province	types.ml	/^|Secede_province of string$/;"	C	type:effect
+Set_country_flag	types.ml	/^|Set_country_flag of string$/;"	C	type:effect
+Set_global_flag	types.ml	/^|Set_global_flag of string$/;"	C	type:effect
+Set_province_flag	types.ml	/^|Set_province_flag of string$/;"	C	type:effect
+Slavery	types.ml	/^    |Slavery of bool $/;"	C	type:conds
+Social_movement	types.ml	/^    |Social_movement of bool$/;"	C	type:conds
+Social_reform	types.ml	/^|Social_reform of string$/;"	C	type:effect
+Social_reform_name	types.ml	/^    |Social_reform_name of string  $/;"	C	type:conds
+Social_reform_want	types.ml	/^    |Social_reform_want of float $/;"	C	type:conds
+Social_spending	types.ml	/^    |Social_spending of float $/;"	C	type:conds
+State_id	types.ml	/^    |State_id of string $/;"	C	type:conds
+Strata	types.ml	/^    |Strata of string $/;"	C	type:conds
+Stronger_army_than	types.ml	/^    |Stronger_army_than of string $/;"	C	type:conds
+Substate_of	types.ml	/^    |Substate_of of string $/;"	C	type:conds
+Tag	types.ml	/^    |Tag of string  $/;"	C	type:conds
+Terrain	types.ml	/^    |Terrain of string $/;"	C	type:conds
+This_culture_union	types.ml	/^    |This_culture_union of string $/;"	C	type:conds
+Title	types.ml	/^                    | Title of string $/;"	C	type:event_member
+Total_amount_of_divisions	types.ml	/^    |Total_amount_of_divisions of int  $/;"	C	type:conds
+Total_amount_of_ships	types.ml	/^    |Total_amount_of_ships of int  $/;"	C	type:conds
+Total_defensives	types.ml	/^    |Total_defensives of int  $/;"	C	type:conds
+Total_num_of_ports	types.ml	/^    |Total_num_of_ports of int $/;"	C	type:conds
+Total_of_ours_sunk	types.ml	/^    |Total_of_ours_sunk of int $/;"	C	type:conds
+Total_offensives	types.ml	/^    |Total_offensives of int  $/;"	C	type:conds
+Total_pops	types.ml	/^    |Total_pops of string $/;"	C	type:conds
+Total_sea_battles	types.ml	/^    |Total_sea_battles of int  $/;"	C	type:conds
+Total_sunk_by_us	types.ml	/^    |Total_sunk_by_us of int  $/;"	C	type:conds
+Trade_goods	types.ml	/^|Trade_goods of string$/;"	C	type:effect
+Trade_policy	types.ml	/^    |Trade_policy of string $/;"	C	type:conds
+Treasury	types.ml	/^|Treasury of int$/;"	C	type:effect
+Trigger	types.ml	/^                    | Trigger of conds list  $/;"	C	type:event_member
+Truce_with	types.ml	/^    |Truce_with of string $/;"	C	type:conds
+Types	types.ml	/^$/;"	M
+Unemployment	types.ml	/^    |Unemployment of int$/;"	C	type:conds
+Unemployment_by_type	types.ml	/^    |Unemployment_by_type of string * float  $/;"	C	type:conds
+Unit_has_leader	types.ml	/^    |Unit_has_leader of bool $/;"	C	type:conds
+Unit_in_battle	types.ml	/^    |Unit_in_battle of bool $/;"	C	type:conds
+Upper_house	types.ml	/^    |Upper_house of string * float $/;"	C	type:conds
+Vassal_of	types.ml	/^    |Vassal_of of string  $/;"	C	type:conds
+War	types.ml	/^    |War of bool $/;"	C	type:conds
+War_effect	types.ml	/^|War_effect of string$/;"	C	type:effect
+War_exhaustion	types.ml	/^    |War_exhaustion of int  $/;"	C	type:conds
+War_exhaustion_effect	types.ml	/^|War_exhaustion_effect of int$/;"	C	type:effect
+War_policy	types.ml	/^    |War_policy of string $/;"	C	type:conds
+War_with	types.ml	/^    |War_with of string $/;"	C	type:conds
+Work_available	types.ml	/^    |Work_available of string $/;"	C	type:conds
+Year	types.ml	/^    |Year of int $/;"	C	type:conds
+Years_of_research	types.ml	/^|Years_of_research of int$/;"	C	type:effect
+_	main.ml	/^let _ = $/;"	f
+cond_str	io.ml	/^let rec cond_str  cond =  match cond with$/;"	f
+conds	types.ml	/^type  conds =  $/;"	t
+effect	types.ml	/^and   effect = $/;"	t
+event	types.ml	/^type event = Country_event of event_member list $/;"	t
+event_member	types.ml	/^type event_member = Id of int $/;"	t
+events	types.ml	/^type events = Events of event list | Eof$/;"	t
+show	main.ml	/^let show text positions =$/;"	f
+str_member	io.ml	/^let str_member x = (match x with $/;"	f

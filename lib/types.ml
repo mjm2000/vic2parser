@@ -1,9 +1,10 @@
 
 
 type  conds =  
-    |And of cond_block 
-    |Or of  cond_block
-    |Not of cond_block
+    |And of conds list 
+    |Or of  conds list
+    |Not of conds list
+    |Social_movement of bool
     |Average_consciousness of int 
     |Average_militancy of int
     |Religion of string
@@ -96,12 +97,12 @@ type  conds =
     |Owns of string 
     |Part_of_sphere of bool 
     |Political_movement_strength of int
-    |Political_reform_name of int  
+    |Political_reform_name of string  
     |Political_reform_want of float 
     |Poor_strata_everyday_needs of float 
-    |Poor_strata_life_needs of int 
-    |Poor_strata_luxury_needs of int  
-    |Poor_tax of int 
+    |Poor_strata_life_needs of float 
+    |Poor_strata_luxury_needs of float  
+    |Poor_tax of float 
     |Pop_majority_culture of string
     |Pop_majority_ideology of string 
     |Pop_majority_religion of string 
@@ -120,7 +121,7 @@ type  conds =
     |Ruling_party of string 
     |Ruling_party_ideology of string  
     |Slavery of bool 
-    |Social_reform_name of string * float 
+    |Social_reform_name of string  
     |Social_reform_want of float 
     |Social_spending of float 
     |Stronger_army_than of string 
@@ -132,7 +133,7 @@ type  conds =
     |Total_num_of_ports of int 
     |Total_offensives of int  
     |Total_of_ours_sunk of int 
-    |Tag of int  
+    |Tag of string  
     |Total_sea_battles of int  
     |Total_sunk_by_us of int  
     |Trade_policy of string 
@@ -205,92 +206,101 @@ type  conds =
 
 
 and   effect = 
-     Badboy_effect    
-    |Cb_generation_speed_modifier 
-    |Core_pop_militancy_modifier 
-    |Diplomatic_points_modifier 
-    |Education_efficiency_modifier 
-    |Factory_cost 
-    |Factory_input 
-    |Factory_output 
-    |Factory_owner_cost 
-    |Factory_throughput 
-    |Global_assimilation_rate 
-    |Global_immigrant_attract 
-    |Global_pop_militancy_modifier 
-    |Global_population_growth 
-    |Import_cost 
-    |Influence_modifier 
-    |Issue_change_speed 
-    |Land_organisation 
-    |Land_unit_start_experience 
-    |Leadership_modifier 
-    |Loan_interest 
-    |Max_loan_modifier 
-    |Max_military_spending 
-    |Max_social_spending 
-    |Max_tariff 
-    |Min_military_spending 
-    |Min_social_spending 
-    |Min_tariff 
-    |Mobilization_economy_impact 
-    |Mobilization_impact 
-    |Mobilisation_size 
-    |Naval_organisation 
-    |Naval_unit_start_experience 
-    |Non_accepted_pop_consciousness_modifier 
-    |Non_accepted_pop_militancy_modifier 
-    |Org_regain 
-    |Political_reform_desire 
-    |Prestige_effect 
-    |Research_points 
-    |Research_points_modifier 
-    |Research_points_on_conquer 
-    |Rgo_output 
-    |Rgo_throughput 
-    |Ruling_party_support 
-    |Social_reform_desire 
-    |Suppression_points_modifier 
-    |Supply_consumption 
-    |Poor_vote 
-    |Tax_efficiency 
-    |Industry_tech_research_bonus 
-    |Unit_start_experience 
-    |War_exhaustion_effect 
-    |Assimilation_rate 
-    |Immigrant_attract 
-    |Immigrant_push 
-    |Life_rating_effect 
-    |Local_artisan_output 
-    |Local_factory_input 
-    |Local_factory_output 
-    |Local_factory_throughput 
-    |Local_repair 
-    |Local_rgo_output 
-    |Local_rgo_throughput 
-    |Local_ruling_party_support 
-    |Local_ship_build 
-    |Pop_consciousness_modifier 
-    |Population_growth 
-    |Farm_rgo_eff 
-    |Farm_rgo_size 
-    |Goods_demand 
-    |Rich_income_modifier 
-    |Poor_life_needs  
+|Assimilate of bool 
+|Any_owned of string * bool 
+|Consciousness_effect of int
+|Militancy_effect of int
+|Literacy_effect of int
+|Any_pop_effect of string * float 
+|Money_effect of int
+|Move_pop of string
+|Pop_type of string
+|Reduce_pop of int
+|Any_pop of string * float 
+|Add_core of string
+|Change_controller of string
+|Change_province_name of string
+|Change_region_name of string
+(*|1 = { state_scope = { change_region_name of string } } *)
+|Flashpoint_tension_effect of int
+|Fort of int 
+|Infrastructure  of int 
+|Life_rating_effect of int
+|Naval_base of int 
+|Remove_core of string
+|Remove_province_modifier of string
+| RGO_size of int
+|Secede_province of string
+|Trade_goods of string
+|Activate_technology of string
+|Add_accepted_culture of string
+|Remove_accepted_culture of string
+|Add_crisis_interest of bool
+|Add_crisis_temperature of int
+|Badboy_effect of int
+|Build_factory_in_capital_state of string
+|Capital_effect of string
+|Civilized_effect of bool
+|Kill_leader of string
+|Nationalvalue_effect of string
+|Plurality of int
+|Prestige_effect of int
+|Prestige_factor of int
+|Primary_culture_effect of string
+|Religion_effect of string
+|Remove_country_modifier_effect of string
+|Research_points of int
+|War_exhaustion_effect of int
+|Years_of_research of int
+|Nationalize of bool
+|Economic_reform of string
+|Election_effect of bool 
+|Enable_ideology of string
+|Government_effect of string
+|Is_slave of string
+|Military_reform of string
+|Political_reform of string
+|Ruling_party_ideology_effect of string
+|Social_reform of string
+|Annex_to of string
+|Create_alliance of string
+|Create_vassal of string
+|End_military_access of string
+|End_war of string
+|Inherit of string
+|Leave_alliance of string
+|Military_access_effect of string
+|Neutrality of bool
+|Release of string
+|Release_vassal of string
+|War_effect of string
+|Add_tax_relative_income of int
+|Treasury of int
+|Change_tag of string
+|Change_tag_no_core_switch of string
+|Clr_province_flag of string
+|Clr_country_flag of string
+|Clr_global_flag of string
+|Country_event of string
+|Province_event of string 
+|Set_province_flag of string
+|Set_country_flag of string
+|Set_global_flag of string
 
 
-and cond_block = Cond_block of conds list 
-type effect_block = effect list
+
+
+
 
 
 type event_member = Id of int 
                     | Title of string 
                     | Picture of string 
-                    | Trigger of cond_block 
+                    | Trigger of conds list  
                     | Is_Triggered of bool
                     | Major of bool
                     | Allow_multiple_instances of bool
-                    | Option of effect_block 
+                    | Option of effect list
                     | MTTH 
 
 type event = Country_event of event_member list 

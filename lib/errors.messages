@@ -1,4 +1,3 @@
-event: COUNTRY_EVENT;L_BRACE 
+modfile: COUNTRY_EVENT L_BRACE 
 
-Missing equal sign before event block
-
+After an arithmetic operator, an expression is expected.

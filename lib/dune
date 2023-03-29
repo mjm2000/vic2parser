@@ -1,12 +1,42 @@
-(library
- (name vic2_ocaml_parser))
+(ocamllex
+  (modules lexer)
+)
+;;(library
+;; (name vic2_ocaml_parser))
 
 
 (menhir
-  (modules parser))
+  (modules parser)
+  (flags -lg 1 -la 1 -lc 2)
+)
 
-(ocamllex  lexer)
+(executable
+  (name main)
+  (flags -w A-4)
+  (libraries menhirLib)
+)
 
+(rule
+  (action
+    (with-stdout-to unitActionsParser.mly
+      (run menhir
+        %{dep:parser.mly}
+        --only-preprocess-u
+))))
+
+(menhir
+  (modules unitActionsParser)
+  (flags  -v --table --external-tokens  Parser  )
+)
+
+(rule
+  (action (with-stdout-to parserMessages.ml
+    (run menhir
+      %{dep:parser.mly}
+      --compile-errors %{dep:errors.messages}
+    )
+  ))
+)
 
 
 

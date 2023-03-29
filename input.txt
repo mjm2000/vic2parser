@@ -1,0 +1,10 @@
+country_event =  {
+    id = 1
+    trigger = {
+        year = 1948 
+        major = no 
+        colonial_nation = yes
+        average_militancy = 10
+        #3423423
+    }
+}

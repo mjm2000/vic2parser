@@ -1,6 +1,5 @@
 %token EQ
 %token EOF
-%token <string> STRING
 %token ID
 %token <int> INTEGER 
 %token L_BRACE
@@ -9,6 +8,7 @@
 %token <string> IDEN
 %token <bool> BOOL
 %token <float> FLOAT
+%token <string> STRING
 
 %token <string> TAG 
 
@@ -203,6 +203,7 @@
 %token TOTAL_POPS   
 %token UNITS_IN_PROVINCE   
 %token WORK_AVAILABLE   
+
 %token AGREE_WITH_RULING_PARTY   
 %token CASH_RESERVES   
 %token CONSCIOUSNESS   
@@ -215,6 +216,84 @@
 %token MILITANCY   
 %token SOCIAL_MOVEMENT   
 %token STRATA   
+
+%token ASSIMILATE 
+%token ANY_OWNED 
+%token CONSCIOUSNESS_EFFECT 
+%token MILITANCY_EFFECT 
+%token LITERACY_EFFECT 
+%token ANY_POP_EFFECT 
+%token MONEY_EFFECT 
+%token MOVE_POP 
+%token POP_TYPE 
+%token REDUCE_POP 
+%token ANY_POP 
+%token ADD_CORE 
+%token CHANGE_CONTROLLER 
+%token CHANGE_PROVINCE_NAME 
+%token CHANGE_REGION_NAME 
+%token FLASHPOINT_TENSION_EFFECT 
+%token FORT 
+%token INFRASTRUCTURE  
+%token LIFE_RATING_EFFECT 
+%token NAVAL_BASE 
+%token REMOVE_CORE 
+%token REMOVE_PROVINCE_MODIFIER 
+%token  RGO_SIZE 
+%token SECEDE_PROVINCE 
+%token TRADE_GOODS 
+%token ACTIVATE_TECHNOLOGY 
+%token ADD_ACCEPTED_CULTURE 
+%token REMOVE_ACCEPTED_CULTURE 
+%token ADD_CRISIS_INTEREST 
+%token ADD_CRISIS_TEMPERATURE 
+%token BADBOY_EFFECT 
+%token BUILD_FACTORY_IN_CAPITAL_STATE 
+%token CAPITAL_EFFECT 
+%token CIVILIZED_EFFECT 
+%token KILL_LEADER 
+%token NATIONALVALUE_EFFECT 
+%token PLURALITY 
+%token PRESTIGE_EFFECT 
+%token PRESTIGE_FACTOR 
+%token PRIMARY_CULTURE_EFFECT 
+%token RELIGION_EFFECT 
+%token REMOVE_COUNTRY_MODIFIER_EFFECT 
+%token RESEARCH_POINTS 
+%token WAR_EXHAUSTION_EFFECT 
+%token YEARS_OF_RESEARCH 
+%token NATIONALIZE 
+%token ECONOMIC_REFORM 
+%token ELECTION_EFFECT 
+%token ENABLE_IDEOLOGY 
+%token GOVERNMENT_EFFECT 
+%token IS_SLAVE 
+%token MILITARY_REFORM 
+%token POLITICAL_REFORM 
+%token RULING_PARTY_IDEOLOGY_EFFECT 
+%token SOCIAL_REFORM 
+%token ANNEX_TO 
+%token CREATE_ALLIANCE 
+%token CREATE_VASSAL 
+%token END_MILITARY_ACCESS 
+%token END_WAR 
+%token INHERIT 
+%token LEAVE_ALLIANCE 
+%token MILITARY_ACCESS_EFFECT 
+%token NEUTRALITY 
+%token RELEASE 
+%token RELEASE_VASSAL 
+%token WAR_EFFECT 
+%token ADD_TAX_RELATIVE_INCOME 
+%token TREASURY 
+%token CHANGE_TAG 
+%token CHANGE_TAG_NO_CORE_SWITCH 
+%token CLR_PROVINCE_FLAG 
+%token CLR_COUNTRY_FLAG 
+%token CLR_GLOBAL_FLAG 
+%token SET_PROVINCE_FLAG 
+%token SET_COUNTRY_FLAG 
+%token SET_GLOBAL_FLAG 
 
 %token COUNTRY_EVENT
 %token PROVINCE_EVENT
@@ -253,32 +332,33 @@ event_prov_member_list:
 event_country_member: 
     |ID;EQ;id=INTEGER 
         {Types.Id(id)}
-    |TRIGGER;EQ; cb = cond_country_bloc  {Types.Trigger(cb)}
+    |TRIGGER;EQ; cb = cond_country_bloc{cb}
 
 event_prov_member: 
     |ID;EQ;id=INTEGER 
         {Types.Id(id)}
-    |TRIGGER;EQ; cb = cond_prov_bloc  {Types.Trigger(cb)}
+    |TRIGGER;EQ; cb = cond_prov_bloc  {cb}
 
 cond_country_bloc: 
-    |L_BRACE;cl=cond_country_list;R_BRACE {Types.Cond_block(cl)}
+    |L_BRACE;cl=cond_country_list;R_BRACE {Types.Trigger(cl)}
     
 cond_country_list:
     |c = cond_country; cl = cond_country_list {c::cl}
     |c = cond_country {[c]}
 
 cond_prov_bloc: 
-    |L_BRACE;cl=cond_prov_list;R_BRACE {Types.Cond_block(cl)}
+    |L_BRACE;cl=cond_prov_list;R_BRACE {Types.Trigger(cl)}
     
 cond_prov_list:
     |c = cond_prov; cl = cond_prov_list {c::cl}
     |c = cond_prov {[c]}
 (*Conditions in the country Scope*)
-cond_country:
-    |AND;cb=cond_country_bloc{Types.And(cb)} 
-    |OR;cb=cond_country_bloc{Types.Or(cb)}
-    |NOT; cb=cond_country_bloc{Types.Not(cb)}
+cond:
+    |AND;cb=cond_country_list{Types.And(cb)} 
+    |OR;cb=cond_country_list{Types.Or(cb)}
+    |NOT; cb=cond_country_list{Types.Not(cb)}
     (*broad scope*)
+    |TAG_COND; EQ; t=TAG{Types.Tag(t)}
     |AVERAGE_MILITANCY ; EQ;m=INTEGER {Types.Average_militancy(m)}
     |RELIGION  ; EQ;r=IDEN{Types.Religion(r)}
     (*Maybe add year lex token*)
@@ -290,16 +370,15 @@ cond_country:
     |IS_TRIGGERED_ONLY; EQ; b=BOOL{Types.Is_triggered_only(b)}
     |MAJOR   ; EQ; b=BOOL{Types.Major(b)}
     (*TODO: after effects*)
-(*    |IMMEDIATE   ; EQ;{Types.} *)
+    |IMMEDIATE   ; EQ;e=effects{Types.Immediate([e])} 
     |CHECK_VARIABLE   ; EQ;L_BRACE;
         WHICH; EQ;i=IDEN;
         VALUE; EQ;x=INTEGER;
     R_BRACE{Types.Check_variable(i,x)}
     |HAS_GLOBAL_FLAG   ; EQ;i=IDEN{Types.Has_global_flag(i)}
     |IS_CANAL_ENABLED   ; EQ;x=INTEGER{Types.Is_canal_enabled(x)}
-    (*Country_scope*)
-country_cond_country:
-    |cond_country;{$1}
+cond_country:
+    |cond;{$1}
     |ADMINISTRATION_SPENDING; EQ;x=INTEGER
         {Types.Administration_spending(x)}
     |AI; EQ; b=BOOL{Types.Ai(b)}
@@ -309,9 +388,9 @@ country_cond_country:
         {Types.Average_consciousness(x)}
     |AVERAGE_MILITANCY; EQ; x = INTEGER
         {Types.Average_militancy(x)}
-    |BADBOY; EQ; x = INTEGER{Types.Badboy(x)}
+    |BADBOY; EQ; x = FLOAT{Types.Badboy(x)}
     |BIG_PRODUCER; EQ;i=IDEN{Types.Big_producer(i)}
-    |BLOCKADE; EQ; x=INTEGER;{Types.Blockade(x)}
+    |BLOCKADE; EQ; x=FLOAT;{Types.Blockade(x)}
     |BRIGADES_COMPARE; EQ; x=INTEGER;{Types.Brigades_compare(x)}
     |CAN_NATIONALIZE ; EQ; b=BOOL{Types.Can_nationalize(b)}
     |CAN_CREATE_VASSALS; EQ;b=BOOL{Types.Can_create_vassals(b)}
@@ -326,7 +405,7 @@ country_cond_country:
         {Types.Constructing_cb_progress(f)}
     |CONSTRUCTING_CB_TYPE; EQ;i=IDEN{Types.Constructing_cb_type(i)}
     |CONTROLS   ; EQ;i=IDEN{Types.Controls(i)}
-    |CRIME_FIGHTING   ; EQ;x=INTEGER{Types.Crime_fighting(i)}
+    |CRIME_FIGHTING   ; EQ;f=FLOAT{Types.Crime_fighting(f)}
     |CRISIS_EXIST   ; EQ;b=BOOL{Types.Crisis_exist(b)}
     |CULTURE_HAS_UNION_TAG; EQ;b=BOOL{Types.Crisis_exist(b)}
     (*TODO: THIS|FROM*)
@@ -336,7 +415,7 @@ country_cond_country:
     R_BRACE{Types.Diplomatic_influence(t,i)}
     |ECONOMIC_POLICY; EQ;i=IDEN{Types.Economic_policy(i)}
     |ECONOMIC_REFORM_NAME; EQ;i=IDEN{Types.Economic_reform_name(i)}
-    |EDUCATION_SPENDING; EQ;x=INTEGER{Types.Education_spending(x)}
+    |EDUCATION_SPENDING; EQ;x=FLOAT{Types.Education_spending(x)}
     |ELECTION; EQ; b=BOOL{Types.Election(b)}
     |EXISTS; EQ; t=TAG{Types.Exists(t)}
     |GOVERNMENT; EQ; i=IDEN{Types.Government(i)}
@@ -344,7 +423,7 @@ country_cond_country:
     |HAVE_CORE_IN; EQ; i=IDEN{Types.Have_core_in(i)}
     |HAS_COUNTRY_FLAG; EQ; i=IDEN{Types.Has_country_flag(i)}
     |HAS_COUNTRY_MODIFIER; EQ; i=IDEN{Types.Has_country_modifier(i)}
-    |HAS_CULTURAL_SPHERE; EQ; b=BOOL{Types.Has_cultural_sphere(b)}
+    |HAS_CULTURAL_SPHERE; EQ; b=IDEN{Types.Has_cultural_sphere(b)}
     |HAS_LEADER; EQ; i=IDEN{Types.Has_leader(i)}
     |HAS_RECENTLY_LOST_WAR; EQ; b=BOOL{Types.Has_recently_lost_war(b)}
     |HAS_UNCLAIMED_CORES; EQ; b=BOOL{Types.Has_unclaimed_cores(b)}
@@ -362,7 +441,7 @@ country_cond_country:
     |IS_CULTURAL_UNION; EQ; b=BOOL{Types.Is_cultural_union_truth(b)}
     (*TODO:add CULTURE*)
     |IS_CULTURE_GROUP; EQ; b=BOOL{Types.Is_culture_group(b)}
-    |IS_DISARMED; EQ;b=BOOL{Types.IS_DISARMED(b)}
+    |IS_DISARMED; EQ;b=BOOL{Types.Is_disarmed(b)}
     |IS_GREATER_POWER; EQ;b=BOOL{Types.Is_greater_power(b)}
     |IS_IDEOLOGY_ENABLED; EQ; i=IDEN{Types.Is_ideology_enabled(i)}
     |IS_INDEPENDANT; EQ; b=BOOL{Types.Is_independant(b)}
@@ -370,7 +449,7 @@ country_cond_country:
     |IS_MOBILISED; EQ; b=BOOL{Types.Is_mobilised(b)}
     |IS_OUR_VASSAL; EQ; t=TAG{Types.Is_possible_vassal(t)}
     |IS_POSSIBLE_VASSAL; EQ;t=TAG{Types.Is_possible_vassal(t)}
-    |IS_SECONDARY_POWER; EQ;b=BOOL{Types.Is_second_countryary_power(b)}
+    |IS_SECONDARY_POWER; EQ;b=BOOL{Types.Is_secondary_power(b)}
     |IS_SPHERE_LEADER_OF; EQ;t=TAG{Types.Is_sphere_leader_of(t)}
     |IS_VASSAL   ; EQ;b=BOOL{Types.Is_vassal(b)}
     |IS_SUBSTATE   ; EQ;b=BOOL{Types.Is_substate(b)}
@@ -403,13 +482,11 @@ country_cond_country:
         {Types.Num_of_vassals(x)}
     |OWNS; EQ; x=IDEN{Types.Owns(x)}
     |PART_OF_SPHERE; EQ; b=BOOL{Types.Part_of_sphere(b)}
-(*   
-     Politcal reforms
-    |PARTY_ISSUE; EQ; f=FLOAT{} 
-    |POLITICAL_MOVEMENT_STRENGTH; EQ; i=INTEGER{Types.}
-    |IDEN   ; EQ;IDEN{Types.Political_reform_name}
-    |POLITICAL_REFORM_WANT   ; EQ;{Types.}
-*)
+(*    Politcal reforms *)
+(*    |PARTY_ISSUE; EQ; f=FLOAT{} *)
+    |POLITICAL_MOVEMENT_STRENGTH; EQ; i=INTEGER{Types.Political_movement_strength(i)}
+    |POLITICAL_REFORM_WANT; EQ;f=FLOAT{Types.Political_reform_want(f)}
+    |POLITICAL_REFORM_NAME; EQ;i=IDEN{Types.Political_reform_name(i)}
 
     |POOR_STRATA_EVERYDAY_NEEDS; EQ;f=FLOAT;
         {Types.Poor_strata_everyday_needs(f)}
@@ -417,7 +494,7 @@ country_cond_country:
         {Types.Poor_strata_life_needs(f)}
     |POOR_STRATA_LUXURY_NEEDS; EQ; f=FLOAT
         {Types.Poor_strata_luxury_needs(f)}
-    |POOR_TAX; EQ; f=FLOAT{Types.Poor_tax(f)}
+    |POOR_TAX; EQ; i=FLOAT{Types.Poor_tax(i)}
     |POP_MAJORITY_CULTURE; EQ;i=IDEN{Types.Pop_majority_culture(i)}
     |POP_MAJORITY_IDEOLOGY; EQ;i=IDEN{Types.Pop_majority_ideology(i)}
     |POP_MAJORITY_RELIGION; EQ;i=IDEN{Types.Pop_majority_religion(i)}
@@ -440,14 +517,13 @@ country_cond_country:
     |RICH_TAX; EQ;f=FLOAT{Types.Rich_strata_luxury_needs(f)}
     |RULING_PARTY; EQ;i=IDEN{Types.Ruling_party(i)}
     |RULING_PARTY_IDEOLOGY; EQ;i=IDEN{Types.Ruling_party(i)}
-    |SLAVERY; EQ;i=IDEN{Types.Slavery}
+    |SLAVERY; EQ;b=BOOL{Types.Slavery(b)}
    (* |SOCIAL_MOVEMENT *)
     |SOCIAL_REFORM_NAME; EQ; i=IDEN{Types.Social_reform_name(i)}
     |SOCIAL_REFORM_WANT; EQ; f=FLOAT{Types.Social_reform_want(f)}
     |SOCIAL_SPENDING   ; EQ; f=FLOAT{Types.Social_spending(f)}
     |STRONGER_ARMY_THAN; EQ; i=IDEN{Types.Stronger_army_than(i)}
-    |SUBSTATE_OF; EQ; i=IDEN{Types.Substate_of(f)}
-    |TAG; EQ; t=TAG{Types.Tag(i)}
+    |SUBSTATE_OF; EQ; i=IDEN{Types.Substate_of(i)}
     |THIS_CULTURE_UNION; EQ; i=IDEN{Types.This_culture_union(i)}
     |TOTAL_AMOUNT_OF_DIVISIONS; EQ; x=INTEGER{Types.Total_amount_of_divisions(x)}
     |TOTAL_AMOUNT_OF_SHIPS; EQ; x=INTEGER{Types.Total_amount_of_ships(x)}
@@ -460,7 +536,8 @@ country_cond_country:
     |TRADE_POLICY   ; EQ;i=IDEN{Types.Trade_policy(i)}
     |TRUCE_WITH   ; EQ;t=TAG{Types.Truce_with(t)}
     |UNEMPLOYMENT   ; EQ;x=INTEGER{Types.Unemployment(x)}
-(* |UNEMPLOYMENT_BY_TYPE; EQ;b=BOOL{Types.} *)
+    (*come back to *)
+    |UNEMPLOYMENT_BY_TYPE; EQ;i=IDEN;f=FLOAT{Types.Unemployment_by_type(i,f) } 
     |UNIT_HAS_LEADER   ; EQ;b=BOOL{Types.Unit_has_leader(b)}
     |UNIT_IN_BATTLE   ; EQ;b=BOOL{Types.Unit_in_battle(b)}
     |UPPER_HOUSE   ; EQ; L_BRACE;
@@ -524,18 +601,103 @@ cond_prov:
    (*UNEMPLOYMENT_BY_TYPE*) 
 (*    |UNITS_IN_PROVINCE; EQ;x=INTEGER{Types.Un}*)
    (* |WORK_AVAILABLE; EQ;L_BRACE;WORKER{Types.} *)
-(*
 pop_cond_country:
-    |AGREE_WITH_RULING_PARTY; EQ;{Types.}
-    |CASH_RESERVES   ; EQ;{Types.}
-    |CONSCIOUSNESS   ; EQ;{Types.}
-    |CULTURE   ; EQ;{Types.}
-    |EVERYDAY_NEEDS   ; EQ;{Types.}
-    |HAS_POP_CULTURE   ; EQ;{Types.}
-    |HAS_POP_RELIGION   ; EQ;{Types.}
-    |LIFE_NEEDS   ; EQ;{Types.}
-    |LUXURY_NEEDS   ; EQ;{Types.}
-    |MILITANCY   ; EQ;{Types.}
-    |SOCIAL_MOVEMENT   ; EQ;{Types.}
-    |STRATA   ; EQ;{Types.}
-*)
+    |AGREE_WITH_RULING_PARTY; EQ;f=FLOAT{Types.Agree_with_ruling_party(a)}
+    |CASH_RESERVES; EQ; f=FLOAT{Types.Cash_reserves(f)}
+    |CONSCIOUSNESS; EQ; f=INTEGER{Types.Consciousness(f)}
+    |CULTURE; EQ; i=IDEN{Types.Culture(i)}
+    |EVERYDAY_NEEDS; EQ; n=INTEGER{Types.EVERYDAY_NEEDS(n)}
+    |HAS_POP_CULTURE; EQ; L_BRACE
+        i=IDEN;
+        i2=IDEN; R_BRACE
+    {Types.Has_pop_culture(i,i2)}
+    |HAS_POP_RELIGION   ;  EQ; L_BRACE
+        i=IDEN;
+        i2=IDEN; R_BRACE
+    {Types.Has_pop_religion(i,i2)}
+    |SOCIAL_MOVEMENT; EQ; b=BOOL{Types.Social_movement(b)}
+    |LIFE_NEEDS; EQ; n=INTEGER{Types.Life_needs(n)}
+    |LUXURY_NEEDS; EQ; n=INTEGER{Types.Life_needs(n)}
+    |MILITANCY; EQ; n=INTEGER{Types.Militancy(n)}
+    |STRATA; EQ; i=IDEN{Types.Strata(i)}
+
+
+effects :
+
+|ASSIMILATE; EQ; b=BOOL {                    	Types.Assimilate(b) }
+|ANY_OWNED; EQ; i=IDEN; b=BOOL {             	Types.Any_owned(i,b)}
+|CONSCIOUSNESS_EFFECT; EQ; n=INTEGER {       	Types.Consciousness_effect(n)}
+|MILITANCY_EFFECT; EQ; n=INTEGER {           	Types.Militancy_effect(n)}
+|LITERACY_EFFECT; EQ; n=INTEGER {            	Types.Literacy_effect(n)}
+|ANY_POP_EFFECT; EQ; i=IDEN f=FLOAT{         	Types.Any_pop_effect(i,f)  }
+|MONEY_EFFECT; EQ; n=INTEGER {               	Types.Money_effect(n)}
+|MOVE_POP; EQ; i=IDEN {                      	Types.Move_pop(i)}
+|POP_TYPE; EQ; i=IDEN {                      	Types.Pop_type(i)}
+|REDUCE_POP; EQ; n=INTEGER {                 	Types.Reduce_pop(n)}
+|ANY_POP; EQ; i=IDEN; f=FLOAT {              	Types.Any_pop(i,f)}
+|ADD_CORE; EQ; i=IDEN {                      	Types.Add_core(i)}
+|CHANGE_CONTROLLER; EQ; i=IDEN {             	Types.Change_controller(i)}
+|CHANGE_PROVINCE_NAME; EQ; i=IDEN {          	Types.Change_province_name(i)}
+|CHANGE_REGION_NAME; EQ; i=IDEN {            	Types.Change_region_name(i)}
+|FLASHPOINT_TENSION_EFFECT; EQ; n=INTEGER {  	Types.Flashpoint_tension_effect(n)}
+|FORT; EQ; n=INTEGER {                       	Types.Fort(n)}
+|INFRASTRUCTURE ; EQ; n=INTEGER {            	Types.Infrastructure (n)}
+|LIFE_RATING_EFFECT; EQ; n=INTEGER {         	Types.Life_rating_effect(n)}
+|NAVAL_BASE; EQ; n=INTEGER {                 	Types.Naval_base(n)}
+|REMOVE_CORE; EQ; i=IDEN {                   	Types.Remove_core(i)}
+|REMOVE_PROVINCE_MODIFIER; EQ; i=IDEN {      	Types.Remove_province_modifier(i)}
+| RGO_SIZE; EQ; n=INTEGER {                  	Types.RGO_size(n)}
+|SECEDE_PROVINCE; EQ; i=IDEN {               	Types.Secede_province(i)}
+|TRADE_GOODS; EQ; i=IDEN {                   	Types.Trade_goods(i)}
+|ACTIVATE_TECHNOLOGY; EQ; i=IDEN {           	Types.Activate_technology(i)}
+|ADD_ACCEPTED_CULTURE; EQ; i=IDEN {          	Types.Add_accepted_culture(i)}
+|REMOVE_ACCEPTED_CULTURE; EQ; i=IDEN {       	Types.Remove_accepted_culture(i)}
+|ADD_CRISIS_INTEREST; EQ; b=BOOL {           	Types.Add_crisis_interest(b)}
+|ADD_CRISIS_TEMPERATURE; EQ; n=INTEGER {     	Types.Add_crisis_temperature(n)}
+|BADBOY_EFFECT; EQ; n=INTEGER {              	Types.Badboy_effect(n)}
+|BUILD_FACTORY_IN_CAPITAL_STATE; EQ; i=IDEN {	Types.Build_factory_in_capital_state(i)}
+|CAPITAL_EFFECT; EQ; i=IDEN {                	Types.Capital_effect(i)}
+|CIVILIZED_EFFECT; EQ; b=BOOL {              	Types.Civilized_effect(b)}
+|KILL_LEADER; EQ; i=IDEN {                   	Types.Kill_leader(i)}
+|NATIONALVALUE_EFFECT; EQ; i=IDEN {          	Types.Nationalvalue_effect(i)}
+|PLURALITY; EQ; n=INTEGER {                  	Types.Plurality(n)}
+|PRESTIGE_EFFECT; EQ; n=INTEGER {            	Types.Prestige_effect(n)}
+|PRESTIGE_FACTOR; EQ; n=INTEGER {            	Types.Prestige_factor(n)}
+|PRIMARY_CULTURE_EFFECT; EQ; i=IDEN {        	Types.Primary_culture_effect(i)}
+|RELIGION_EFFECT; EQ; i=IDEN {               	Types.Religion_effect(i)}
+|REMOVE_COUNTRY_MODIFIER_EFFECT; EQ; i=IDEN {	Types.Remove_country_modifier_effect(i)}
+|RESEARCH_POINTS; EQ; n=INTEGER {            	Types.Research_points(n)}
+|WAR_EXHAUSTION_EFFECT; EQ; n=INTEGER {      	Types.War_exhaustion_effect(n)}
+|YEARS_OF_RESEARCH; EQ; n=INTEGER {          	Types.Years_of_research(n)}
+|NATIONALIZE; EQ; b=BOOL {                   	Types.Nationalize(b)}
+|ECONOMIC_REFORM; EQ; i=IDEN {               	Types.Economic_reform(i)}
+|ELECTION_EFFECT; EQ; b=BOOL {               	Types.Election_effect(b) }
+|ENABLE_IDEOLOGY; EQ; i=IDEN {               	Types.Enable_ideology(i)}
+|GOVERNMENT_EFFECT; EQ; i=IDEN {             	Types.Government_effect(i)}
+|IS_SLAVE; EQ; i=IDEN {                      	Types.Is_slave(i)}
+|MILITARY_REFORM; EQ; i=IDEN {               	Types.Military_reform(i)}
+|POLITICAL_REFORM; EQ; i=IDEN {              	Types.Political_reform(i)}
+|RULING_PARTY_IDEOLOGY_EFFECT; EQ; i=IDEN {  	Types.Ruling_party_ideology_effect(i)}
+|SOCIAL_REFORM; EQ; i=IDEN {                 	Types.Social_reform(i)}
+|ANNEX_TO; EQ; i=IDEN {                      	Types.Annex_to(i)}
+|CREATE_ALLIANCE; EQ; i=IDEN {               	Types.Create_alliance(i)}
+|CREATE_VASSAL; EQ; i=IDEN {                 	Types.Create_vassal(i)}
+|END_MILITARY_ACCESS; EQ; i=IDEN {           	Types.End_military_access(i)}
+|END_WAR; EQ; i=IDEN {                       	Types.End_war(i)}
+|INHERIT; EQ; i=IDEN {                       	Types.Inherit(i)}
+|LEAVE_ALLIANCE; EQ; i=IDEN {                	Types.Leave_alliance(i)}
+|MILITARY_ACCESS_EFFECT; EQ; i=IDEN {        	Types.Military_access_effect(i)}
+|NEUTRALITY; EQ; b=BOOL {                    	Types.Neutrality(b)}
+|RELEASE; EQ; i=IDEN {                       	Types.Release(i)}
+|RELEASE_VASSAL; EQ; i=IDEN {                	Types.Release_vassal(i)}
+|WAR_EFFECT; EQ; i=IDEN {                    	Types.War_effect(i)}
+|ADD_TAX_RELATIVE_INCOME; EQ; n=INTEGER {    	Types.Add_tax_relative_income(n)}
+|TREASURY; EQ; n=INTEGER {                   	Types.Treasury(n)}
+|CHANGE_TAG; EQ; i=IDEN {                    	Types.Change_tag(i)}
+|CHANGE_TAG_NO_CORE_SWITCH; EQ; i=IDEN {     	Types.Change_tag_no_core_switch(i)}
+|CLR_PROVINCE_FLAG; EQ; i=IDEN {             	Types.Clr_province_flag(i)}
+|CLR_COUNTRY_FLAG; EQ; i=IDEN {              	Types.Clr_country_flag(i)}
+|CLR_GLOBAL_FLAG; EQ; i=IDEN {               	Types.Clr_global_flag(i)}
+|SET_PROVINCE_FLAG; EQ; i=IDEN {             	Types.Set_province_flag(i)}
+|SET_COUNTRY_FLAG; EQ; i=IDEN {              	Types.Set_country_flag(i)}
+|SET_GLOBAL_FLAG; EQ; i=IDEN {               	Types.Set_global_flag(i)}
